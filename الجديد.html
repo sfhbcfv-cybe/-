@@ -665,7 +665,7 @@ body.dark-mode .bottom{
   box-shadow:0 5px 18px rgba(0,0,0,.2);
   backdrop-filter:blur(24px) saturate(160%);
   -webkit-backdrop-filter:blur(24px) saturate(160%);
-  cursor:pointer;transition:transform .22s ease,background .22s ease;
+  cursor:pointer;transition:transform .38s cubic-bezier(.22,1,.36,1),background .38s ease,box-shadow .38s ease;
 }
 #searchToggle:active{transform:scale(.94)}
 #searchToggle svg{width:30px;height:30px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round}
@@ -700,6 +700,137 @@ body.dark-mode .search-popover{background:rgba(20,20,20,.78);color:#fff;border-c
 .home-slider:hover .home-slide img{filter:saturate(1.04)}
 @media(prefers-reduced-motion:reduce){
  .home-slider-track,.home-slide img,.home-slider,.home-slider-dot{transition:none!important}
+}
+
+
+/* ===== البحث يتمدد مكان الشريط السفلي بحركة ناعمة ===== */
+.bottom{
+  transition:transform .78s cubic-bezier(.22,1,.36,1),opacity .62s ease,filter .62s ease;
+  transform:translateY(0);
+  opacity:1;
+}
+body.search-mode .bottom{
+  transform:translateY(125%);
+  opacity:0;
+  pointer-events:none;
+}
+.floating-search{
+  transition:left .42s cubic-bezier(.22,.75,.25,1),right .42s cubic-bezier(.22,.75,.25,1),bottom .42s cubic-bezier(.22,.75,.25,1),transform .42s cubic-bezier(.22,.75,.25,1);
+}
+.search-popover{
+  width:0;
+  min-width:0;
+  flex:0 1 0;
+  padding-left:0;
+  padding-right:0;
+  opacity:0;
+  border-width:0;
+  transition:flex .78s cubic-bezier(.22,1,.36,1),opacity .48s ease,padding .78s cubic-bezier(.22,1,.36,1),border-width .48s ease;
+}
+.floating-search.open{
+  left:50%;
+  right:auto;
+  width:min(520px, calc(100vw - 32px));
+  bottom:10px;
+  transform:translateX(-50%);
+  direction:ltr;
+}
+.floating-search.open .search-popover{
+  display:block;
+  flex:1 1 auto;
+  width:auto;
+  min-width:0;
+  opacity:1;
+  padding:0 16px;
+  border-width:1px;
+  animation:searchBloom .42s cubic-bezier(.22,.75,.25,1) both;
+}
+.floating-search.open #searchToggle{
+  flex:0 0 58px;
+}
+@keyframes searchBloom{
+  from{transform:translateX(12px) scale(.97);filter:blur(3px)}
+  to{transform:translateX(0) scale(1);filter:blur(0)}
+}
+.floating-search.open .search-popover{
+  background:rgba(250,250,250,.46);
+  border-color:rgba(255,255,255,.78);
+  box-shadow:0 8px 26px rgba(0,0,0,.18),inset 0 1px 0 rgba(255,255,255,.42);
+  backdrop-filter:blur(30px) saturate(175%);
+  -webkit-backdrop-filter:blur(30px) saturate(175%);
+}
+body.dark-mode .floating-search.open .search-popover{
+  background:rgba(20,20,20,.58);
+  border-color:rgba(255,255,255,.2);
+  color:#fff;
+}
+@media(max-width:600px){
+  .floating-search.open{left:auto;right:10px;width:auto;bottom:10px;transform:none}
+  .floating-search.open #searchToggle{flex-basis:54px}
+  .floating-search.open .search-popover{height:44px}
+}
+/* تثبيت زر البحث في مكانه مع توسيط حقل البحث بشكل مستقل */
+.floating-search.open{
+  left:auto;
+  right:12px;
+  width:auto;
+  transform:none;
+}
+.floating-search.open #searchToggle{
+  position:relative;
+  z-index:2;
+}
+.floating-search.open .search-popover{
+  position:fixed;
+  left:50%;
+  right:auto;
+  bottom:15px;
+  width:min(460px,calc(100vw - 104px));
+  height:58px;
+  flex:none;
+  transform:translateX(-50%);
+  animation:centeredSearchBloom .78s cubic-bezier(.22,1,.36,1) both;
+}
+@keyframes centeredSearchBloom{
+  from{opacity:0;filter:blur(9px);scale:.94}
+  65%{opacity:.82;filter:blur(2px);scale:1.008}
+  to{opacity:1;filter:blur(0);scale:1}
+}
+@media(max-width:600px){
+  .floating-search.open{right:10px}
+  .floating-search.open .search-popover{
+    bottom:15px;
+    width:calc(100vw - 92px);
+    height:54px;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  .bottom,.floating-search,.search-popover,.floating-search.open .search-popover{transition:none!important;animation:none!important}
+}
+
+
+/* اختيار نطاق البحث: الرئيسية أو المنتخبات */
+.search-scope-tabs{
+  display:none;position:fixed;left:50%;bottom:84px;transform:translateX(-50%);
+  z-index:91;direction:rtl;gap:7px;padding:6px;border-radius:24px;
+  background:rgba(250,250,250,.48);border:1px solid rgba(255,255,255,.72);
+  box-shadow:0 8px 26px rgba(0,0,0,.16),inset 0 1px 0 rgba(255,255,255,.45);
+  backdrop-filter:blur(28px) saturate(170%);-webkit-backdrop-filter:blur(28px) saturate(170%);
+  animation:searchBloom .5s cubic-bezier(.22,1,.36,1) both;
+}
+.floating-search.open .search-scope-tabs{display:flex}
+.search-scope-btn{border:1px solid transparent;border-radius:19px;padding:9px 17px;
+  color:var(--text);background:transparent;font:inherit;font-size:14px;white-space:nowrap;
+  cursor:pointer;transition:background .25s ease,color .25s ease,transform .25s ease,border-color .25s ease}
+.search-scope-btn:active{transform:scale(.96)}
+.search-scope-btn.active{background:rgba(255,255,255,.68);border-color:rgba(255,255,255,.7);
+  box-shadow:0 3px 12px rgba(0,0,0,.1);font-weight:700}
+body.dark-mode .search-scope-tabs{background:rgba(20,20,20,.65);border-color:rgba(255,255,255,.17)}
+body.dark-mode .search-scope-btn{color:#fff}
+body.dark-mode .search-scope-btn.active{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.2)}
+@media(max-width:600px){
+  .search-scope-tabs{bottom:80px;gap:5px;padding:5px}
+  .search-scope-btn{padding:8px 15px;font-size:13px}
 }
 
 </style>
@@ -767,7 +898,6 @@ body.dark-mode .search-popover{background:rgba(20,20,20,.78);color:#fff;border-c
         <!-- المربع الثاني: المنتخبات -->
         <div class="home-slider" id="countriesSlider" aria-label="عارض صور المنتخبات">
             <div class="home-slider-track">
-
                 
               
                 <div class="home-slide" data-target-type="country" data-target-name="Argentina">
@@ -973,6 +1103,10 @@ body.dark-mode .search-popover{background:rgba(20,20,20,.78);color:#fff;border-c
 
 <!-- زر البحث العائم بجانب الشريط السفلي -->
 <div class="floating-search">
+    <div class="search-scope-tabs" id="searchScopeTabs" aria-label="نطاق البحث">
+        <button type="button" class="search-scope-btn active" data-search-scope="home">⌂ الرئيسية</button>
+        <button type="button" class="search-scope-btn" data-search-scope="countries">🌍 المنتخبات</button>
+    </div>
     <input id="search" class="search-popover" type="search" placeholder="ابحث عن فريق أو منتخب أو دوري..." aria-label="البحث">
     <button id="searchToggle" type="button" aria-label="فتح البحث" title="بحث">
         <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"></circle><path d="m16 16 5 5"></path></svg>
@@ -2973,6 +3107,7 @@ document
 
 
 /* البحث */
+let searchScope = "home";
 
 $("search")
 .addEventListener(
@@ -2985,16 +3120,9 @@ $("search")
             .toLowerCase();
 
 
-        if(
-            $("countries")
-            .classList
-            .contains("active")
-        ){
-
+        if(searchScope === "countries"){
             renderCountries(q);
-
             return;
-
         }
 
 
@@ -3038,7 +3166,25 @@ $("search")
             ?
 
             leagueMatches
-                .map(leagueCard)
+                .map(league => {
+                    const teamIndex = league.teams.findIndex(
+                        team => team.name.toLowerCase().includes(q)
+                    );
+
+                    // لو البحث باسم فريق، افتح الدوري ثم الفريق المطلوب مباشرة.
+                    if(teamIndex !== -1){
+                        const team = league.teams[teamIndex];
+                        return `
+                            <button class="card league-card" onclick="openLeague('${league.id}');openTeam(${teamIndex})">
+                                <span class="league-icon">${league.icon}</span>
+                                <strong>${team.name}</strong>
+                                <span class="small">داخل ${league.name}</span>
+                            </button>
+                        `;
+                    }
+
+                    return leagueCard(league);
+                })
                 .join("")
 
             :
@@ -3325,20 +3471,57 @@ renderCountries();
 
 
 
-/* فتح وإغلاق البحث من الأيقونة السفلية */
+/* فتح وإغلاق البحث واختيار مكان البحث */
 (function(){
   const wrap = document.querySelector(".floating-search");
   const toggle = $("searchToggle");
   const field = $("search");
-  if(!wrap || !toggle || !field) return;
+  const tabs = $("searchScopeTabs");
+  if(!wrap || !toggle || !field || !tabs) return;
+
+  function updateScopeButtons(){
+    tabs.querySelectorAll("[data-search-scope]").forEach(btn => {
+      btn.classList.toggle("active", btn.dataset.searchScope === searchScope);
+    });
+  }
+
   toggle.addEventListener("click", function(){
     const opened = wrap.classList.toggle("open");
+    document.body.classList.toggle("search-mode", opened);
     toggle.setAttribute("aria-label", opened ? "إغلاق البحث" : "فتح البحث");
-    if(opened) field.focus();
-    else { field.value=""; field.dispatchEvent(new Event("input",{bubbles:true})); }
+    if(opened){
+      searchScope = $("countries").classList.contains("active") ? "countries" : "home";
+      updateScopeButtons();
+      field.focus();
+    } else {
+      field.value="";
+      field.dispatchEvent(new Event("input",{bubbles:true}));
+    }
   });
+
+  tabs.querySelectorAll("[data-search-scope]").forEach(btn => {
+    btn.addEventListener("click", function(){
+      searchScope = this.dataset.searchScope;
+      if(searchScope === "countries"){
+        showPage("countries");
+        setNav("countries");
+        renderCountries(field.value.trim().toLowerCase());
+      } else {
+        showPage("home");
+        setNav("home");
+        if(field.value.trim()){ field.dispatchEvent(new Event("input",{bubbles:true})); }
+        else { renderLeagues(); }
+      }
+      updateScopeButtons();
+      field.focus();
+    });
+  });
+
   document.addEventListener("click", function(e){
-    if(!wrap.contains(e.target)) wrap.classList.remove("open");
+    if(!wrap.contains(e.target)) {
+      wrap.classList.remove("open");
+      document.body.classList.remove("search-mode");
+    }
   });
 })();
 
