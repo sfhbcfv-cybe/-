@@ -997,6 +997,22 @@ body.dark-mode .news-section{background:radial-gradient(ellipse at 100% 0%,rgba(
                 </div>
                 <button class="news-source" type="button" onclick="event.stopPropagation();openNewsSource('barcelona')">المصدر ←</button>
             </article>
+            <article class="news-item news-hidden" data-news-extra="true">
+                <span class="news-icon" aria-hidden="true">🇦🇷</span>
+                <div class="news-copy">
+                    <strong>طقم منتخب الأرجنتين</strong>
+                    <span>شوف أطقم التانجو داخل قسم المنتخبات</span>
+                </div>
+                <button class="news-source" type="button" onclick="event.stopPropagation();openNewsSource('barcelona')">المصدر ←</button>
+            </article>
+            <article class="news-item news-hidden" data-news-extra="true">
+                <span class="news-icon" aria-hidden="true">🔴</span>
+                <div class="news-copy">
+                    <strong>إضافة تيشرت مانشستر يونايتد 2008</strong>
+                    <span>تيشرت مان يونايتد 2008 بقى موجود في الأطقم المميزة</span>
+                </div>
+                <button class="news-source" type="button" onclick="event.stopPropagation();openNewsSource('manunited2008')">المصدر ←</button>
+            </article>
         </div>
     </section>
 
@@ -3233,6 +3249,14 @@ function openNewsSource(destination){
         setNav("countries");
         renderCountries("");
         openCountry(argentinaIndex);
+        return;
+    }
+    if(destination === "manunited2008"){
+        openLeague("stars");
+        const featuredLeague = leagues.find(league => league.id === "stars");
+        if(!featuredLeague) return;
+        const kitIndex = featuredLeague.teams.findIndex(team => team.name.trim().toLowerCase() === "man united 2008");
+        if(kitIndex >= 0) openTeam(kitIndex);
         return;
     }
     goHome();
