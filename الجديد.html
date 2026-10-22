@@ -971,47 +971,23 @@ body.dark-mode .news-section{background:radial-gradient(ellipse at 100% 0%,rgba(
                     <strong>أضافة تيشرت جديد برشلونة</strong>
                     <span>تيشرت برشلونة 1999 في المميزة </span>
                 </div>
-                <button class="news-source" type="button" onclick="event.stopPropagation();openNewsSource('man united 2008')">المصدر ←</button>
+                <button class="news-source" type="button" onclick="event.stopPropagation();openNewsSource(this)" data-news-page="leaguePage" data-news-section="stars" data-news-shirt="Barcelona 1999">المصدر ←</button>
             </article>
             <article class="news-item">
-                <span class="news-icon" aria-hidden="true">🔴</span>
+                <span class="news-icon" aria-hidden="true">⭐️</span>
                 <div class="news-copy">
-                    <strong>إضافة طقم جديد لبرشلونة</strong>
-                    <span>شوف أطقم برشلونة داخل الدوري الإسباني</span>
+                    <strong>اضافة المفضلات </strong>
+                    <span>اضافة المفضلات بأمكانك اضافة لوجو او تيشرت في المفضلة</span>
                 </div>
-                <button class="news-source" type="button" onclick="event.stopPropagation();openNewsSource('barcelona')">المصدر ←</button>
+                <button class="news-source" type="button" onclick="event.stopPropagation();openNewsSource(this)" data-news-page="dolabak" data-news-section="" data-news-shirt="">المصدر ←</button>
             </article>
             <article class="news-item">
-                <span class="news-icon" aria-hidden="true">✨</span>
+                <span class="news-icon" aria-hidden="true">🪪</span>
                 <div class="news-copy">
-                    <strong>تعديلات الموقع</strong>
-                    <span>تابع آخر التحسينات والإضافات على الموقع</span>
+                    <strong>قائمة صنع البطالقة</strong>
+                    <span>يمكنك صنع بطاقة دريم ليج لنفسك و و ضع صورتك ( فريباً ) </span>
                 </div>
-                <button class="news-source" type="button" onclick="event.stopPropagation();openNewsSource('argentina')">المصدر ←</button>
-            </article>
-            <article class="news-item news-hidden" data-news-extra="true">
-                <span class="news-icon" aria-hidden="true">🇦🇷</span>
-                <div class="news-copy">
-                    <strong>طقم منتخب الأرجنتين</strong>
-                    <span>شوف أطقم التانجو داخل قسم المنتخبات</span>
-                </div>
-                <button class="news-source" type="button" onclick="event.stopPropagation();openNewsSource('barcelona')">المصدر ←</button>
-            </article>
-            <article class="news-item news-hidden" data-news-extra="true">
-                <span class="news-icon" aria-hidden="true">🇦🇷</span>
-                <div class="news-copy">
-                    <strong>طقم منتخب الأرجنتين</strong>
-                    <span>شوف أطقم التانجو داخل قسم المنتخبات</span>
-                </div>
-                <button class="news-source" type="button" onclick="event.stopPropagation();openNewsSource('barcelona')">المصدر ←</button>
-            </article>
-            <article class="news-item news-hidden" data-news-extra="true">
-                <span class="news-icon" aria-hidden="true">🔴</span>
-                <div class="news-copy">
-                    <strong>إضافة تيشرت مانشستر يونايتد 2008</strong>
-                    <span>تيشرت مان يونايتد 2008 بقى موجود في الأطقم المميزة</span>
-                </div>
-                <button class="news-source" type="button" onclick="event.stopPropagation();openNewsSource('manunited2008')">المصدر ←</button>
+                <button class="news-source" type="button" onclick="event.stopPropagation();openNewsSource(this)" data-news-page="dolabak" data-news-section="" data-news-shirt="">المصدر ←</button>
             </article>
         </div>
     </section>
@@ -1034,6 +1010,10 @@ body.dark-mode .news-section{background:radial-gradient(ellipse at 100% 0%,rgba(
 
                 <div class="home-slide" data-target-type="team" data-league-id="Saudi Arabia" data-team-name="AL Nassr">
                     <img src="https://up6.cc/2026/10/179224504107743.png" alt="AL Nassr">
+                </div>
+                  
+                <div class="home-slide" data-target-type="team" data-league-id="stars" data-team-name="Barcelona 1999">
+                    <img src="https://up6.cc/2026/10/179268475164531.png"="Barcelona 1999">
                 </div>
                 
                 <div class="home-slide" data-target-type="team" data-league-id="stars" data-team-name="man united 2008">
@@ -1620,8 +1600,6 @@ const leagues = [
     ]
 },
 
-
-
 /* =========================
     الدوري السعودي 
     ======================= */
@@ -1648,8 +1626,6 @@ const leagues = [
                 ["الحارس 1","https://up6.cc/2026/10/1791561056771.png"],
                 ["الحارس 2","https://up6.cc/2026/10/179156105682842.png"],
                 ["الحارس 3","https://up6.cc/2026/10/179156105686093.png"]  
-
-
             ]
         }
 
@@ -1674,7 +1650,7 @@ const leagues = [
             logo:
             "https://up6.cc/2026/08/17877306242481.png",
             kits:[
-                  ["Barcelona 1999","https://up6.cc/2026/10/179089490508291.png"], 
+                  ["Barcelona 1999","https://up6.cc/2026/10/179268351691312.png"], 
            ] 
         },
         
@@ -1684,7 +1660,6 @@ const leagues = [
             "https://up6.cc/2026/08/178811994776821.png",
             kits:[
                 ["man united 2008","https://up6.cc/2026/10/179089490508291.png"],
-
             ]
         }
 
@@ -3225,38 +3200,65 @@ function toggleMoreNews(){
     }
 }
 
-/* وجهات أزرار مصدر الأخبار */
-function openNewsSource(destination){
-    if(destination === "dolabak"){
+/* =====================================================
+   إعدادات زر «المصدر» في الأخبار — عدّل بيانات الزر نفسه
+   data-news-page    = الصفحة داخل الموقع: leaguePage أو countries أو dolabak
+   data-news-section = معرّف القسم/الدوري (مثل stars أو spanish) أو اسم المنتخب
+   data-news-shirt   = اسم الفريق/الطقم كما هو مكتوب في بيانات الموقع
+   مثال: data-news-page="leaguePage" data-news-section="stars" data-news-shirt="man united 2008"
+===================================================== */
+function openNewsSource(sourceButton){
+    // دعم الوجهات القديمة لو استُدعيت بنص بدل زر.
+    if(typeof sourceButton === "string"){
+        const legacyRoutes = {
+            "dolabak": {page:"dolabak"},
+            "barcelona": {page:"leaguePage", section:"spanish", shirt:"Barcelona"},
+            "argentina": {page:"countries", section:"Argentina"},
+            "manunited2008": {page:"leaguePage", section:"stars", shirt:"man united 2008"},
+            "man united 2008": {page:"leaguePage", section:"stars", shirt:"man united 2008"}
+        };
+        const route = legacyRoutes[sourceButton];
+        if(!route) return goHome();
+        return openNewsRoute(route);
+    }
+    if(!sourceButton) return;
+    openNewsRoute({
+        page: sourceButton.dataset.newsPage,
+        section: sourceButton.dataset.newsSection,
+        shirt: sourceButton.dataset.newsShirt
+    });
+}
+
+function openNewsRoute(route){
+    if(route.page === "dolabak"){
         showPage("dolabak");
         setNav("dolabak");
         renderFavorites();
         return;
     }
-    if(destination === "barcelona"){
-        // افتح الدوري الإسباني ثم اعرض برشلونة وأطقم الفريق مباشرة.
-        openLeague("spanish");
-        const spanishLeague = leagues.find(league => league.id === "spanish");
-        if(!spanishLeague) return;
-        const barcelonaIndex = spanishLeague.teams.findIndex(team => team.name.trim().toLowerCase() === "barcelona");
-        if(barcelonaIndex >= 0) openTeam(barcelonaIndex);
-        return;
-    }
-    if(destination === "argentina"){
-        const argentinaIndex = countries.findIndex(country => country.name.trim().toLowerCase() === "argentina");
-        if(argentinaIndex < 0) return;
+    if(route.page === "countries"){
+        const countryIndex = countries.findIndex(country =>
+            country.name.trim().toLowerCase() === (route.section || "").trim().toLowerCase()
+        );
+        if(countryIndex < 0) return;
         showPage("countries");
         setNav("countries");
         renderCountries("");
-        openCountry(argentinaIndex);
+        openCountry(countryIndex);
         return;
     }
-    if(destination === "manunited2008"){
-        openLeague("stars");
-        const featuredLeague = leagues.find(league => league.id === "stars");
-        if(!featuredLeague) return;
-        const kitIndex = featuredLeague.teams.findIndex(team => team.name.trim().toLowerCase() === "man united 2008");
-        if(kitIndex >= 0) openTeam(kitIndex);
+    if(route.page === "leaguePage"){
+        const sectionId = (route.section || "").trim();
+        const targetLeague = leagues.find(league => league.id === sectionId || league.name === sectionId);
+        if(!targetLeague) return;
+        openLeague(targetLeague.id);
+        const shirtName = (route.shirt || "").trim().toLowerCase();
+        if(shirtName){
+            const teamIndex = targetLeague.teams.findIndex(team =>
+                team.name.trim().toLowerCase() === shirtName
+            );
+            if(teamIndex >= 0) openTeam(teamIndex);
+        }
         return;
     }
     goHome();
